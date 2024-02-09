@@ -2,6 +2,7 @@
 
 import psycopg2
 import subprocess
+from dto import banco
 
 # Parâmetros de conexão PostgreSQL
 host_pg = "localhost"
@@ -16,29 +17,9 @@ svrAdmPendrive = '10.80.3.22'
 dirPendrive = '/home/geracao'
 dirThor = 'C:/Users/Douglas/Desktop/pendrive'
 
-# Criar uma conexão PostgreSQL
-conectasectrans = psycopg2.connect(host=host_pg, dbname=dbname_pg, user=user_pg, password=password_pg, port=port_pg)
+db = banco.Banco(host_pg, dbname_pg, user_pg, password_pg, port_pg)
 
-# Criar um cursor para file.writeutar a consulta SQL
-cursor = conectasectrans.cursor()
-
-# Definir a consulta SQL
-sql_query = """
-    SELECT d.username, a.tipo, a.estado, a.carro_id, b.empresa, b.id, c.carro, e.rede, e.chave, c.ip, e.ip_roteador, c.mac, c.numero_conexao, c.tipo_conexao, 
-    c.username_conexao, c.senha_conexao, c.fps, c.tamanho_video, c.particao, b.ip_servidor, b.rede_servidor, e.criptografia, f.url, a.cameras 
-    FROM pedidos a, empresas b, carros c, users d, redes e, dvrs f 
-    WHERE b.id = a.empresa_id AND c.id = a.carro_id AND a.user_id = d.id AND c.rede_id = e.id AND a.estado = 'pendente'
-"""
-
-# file.writeutar a consulta SQL
-cursor.execute(sql_query)
-
-# Recuperar os resultados
-pedidosPendentes = cursor.fetchall()
-
-# Fechar o cursor e a conexão
-cursor.close()
-conectasectrans.close()
+pedidosPendentes = db.get_pedidos_pendentes()
 
 # #Apaga arquivos de configuracao pre existente
 # subprocess.run("rm /home/pendrive/* &", shell=True)
