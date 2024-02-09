@@ -35,10 +35,32 @@ class Banco:
 
         return self.do_query(sql_query)
     
-    def get_empresas(self):
+    def get_companies(self):
 
         sql_query = """
-            SELECT * FROM empresas;
+            SELECT id, nome FROM empresas
+            ORDER BY nome ASC;;
         """
 
         return self.do_query(sql_query)
+    
+    def get_all_cars(self, company_id):
+
+        sql_query = f"""
+            SELECT id, carro 
+            FROM carros
+            WHERE empresa_id = {company_id} AND fora=FALSE
+            ORDER BY carro ASC;;
+        """
+        
+        return self.do_query(sql_query)
+    
+    def get_car_by_name(self, car_name):
+
+        sql_query = f"""
+            SELECT *
+            FROM carros
+            WHERE carro = '{car_name}';
+        """
+        return self.do_query(sql_query)
+    
