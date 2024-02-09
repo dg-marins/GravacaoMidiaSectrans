@@ -34,3 +34,11 @@ class Banco:
         """
 
         return self.do_query(sql_query)
+    
+    def get_empresas(self):
+
+        sql_query = """
+            SELECT * FROM empresas;
+        """
+
+        return self.do_query(sql_query)
