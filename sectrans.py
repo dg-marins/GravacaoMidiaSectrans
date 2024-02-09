@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import psycopg2
 import subprocess
 from dto import banco
 
@@ -97,8 +96,8 @@ for ListaCompleta in arrLista:
                 file.write('<reverse>false</reverse> <!--DESCARREGAMENTO REVERSO-->\n')
                 file.write('</sectrans>\n')
         
-        # file.write(f"scp {dirThor}/{log}.xml {svrPendrive}:/{dirPendrive}\n")
-        subprocess.run(["scp", "-P", "2222", f"{dirThor}/{log}", f"root@{svrPendrive}:/{dirPendrive}"])
+        # # file.write(f"scp {dirThor}/{log}.xml {svrPendrive}:/{dirPendrive}\n")
+        # subprocess.run(["scp", "-P", "2222", f"{dirThor}/{log}", f"root@{svrPendrive}:/{dirPendrive}"])
 
         print("Arquivo enviado")
 
@@ -139,4 +138,4 @@ for ListaCompleta in arrLista:
     # pg_query(conectasectrans, f"UPDATE pedidos SET estado = 'gravado' WHERE estado = 'pendente' AND empresa_id = '{ListaCompleta['empresa_id']}' AND carro_id = '{ListaCompleta['carro_id']}'")
 
 # Fechar a conexão com o PostgreSQL
-conectasectrans.close()
+# conectasectrans.close()

@@ -1,0 +1,17 @@
+{
+
+    "data_base": {
+        "host_pg":     "localhost",
+        "dbname_pg":   "sectrans",
+        "user_pg":     "postgres",
+        "password_pg": "a5ztq3ej",
+        "port_pg":     "5432"
+    },
+
+    "pendrive_machine": {
+        "svrPendrive":    "10.80.0.126",
+        "svrAdmPendrive": "10.80.3.22",
+        "dirPendrive":    "/home/geracao",
+        "dirThor":        "C:/Users/Douglas/Desktop/pendrive"
+    }
+}
