@@ -44,16 +44,30 @@ class Main():
 
         db = banco.Banco(host_pg, dbname_pg, user_pg, password_pg, port_pg)
 
-        pedidosPendentes = db.get_pedidos_pendentes()
-
         ### --------------------------------- ###
         #  TESTES                           #
-        empresas = db.get_empresas()
+        registred_companies = db.get_companies()
+        for company in registred_companies:
+            id, name = company
+            print(id, name)
+
+        selectet_company_id = input("\nSelecione Id da Empresa: ")
+
+        registred_cars = db.get_all_cars(selectet_company_id)
+        for carro in registred_cars:
+            id, car = carro
+            print(car)
+
+        selected_car_name = input("\nInforme número do carro: ")
+
+        car_information = db.get_car_by_name(selected_car_name)
 
         ### --------------------------------- ###
 
         # #Apaga arquivos de configuracao pre existente
         # subprocess.run("rm /home/pendrive/* &", shell=True)
+
+        pedidosPendentes = db.get_pedidos_pendentes()
 
         arrLista = []
 
