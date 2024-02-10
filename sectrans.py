@@ -59,8 +59,27 @@ class Main():
             print(car)
 
         selected_car_name = input("\nInforme número do carro: ")
+            
+        car_id = db.get_car_id_by_name(selected_car_name)
 
-        car_information = db.get_car_by_name(selected_car_name)
+
+        dvrs = db.get_all_dvrs()
+        for dvr in dvrs:
+            id, modelo = dvr
+            print(id, modelo)
+
+        dvr_id = input("\nInforme o id do dvr: ")
+
+        cameras = input("\nInforme a quantidade de câmeras: ")
+        
+        ## REFATORAR
+        user_id = 279
+
+        if db.set_pedido_pendente(user_id, selectet_company_id, car_id, dvr_id, cameras):
+            print("Pedido inserido com sucesso.")
+
+        else:
+            print("Não foi possível adicionar requisição")
 
         ### --------------------------------- ###
 
