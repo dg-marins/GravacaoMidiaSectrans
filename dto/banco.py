@@ -64,3 +64,39 @@ class Banco:
         """
         return self.do_query(sql_query)
     
+    def get_car_id_by_name(self, car_name):
+
+        sql_query = f"""
+            SELECT id
+            FROM carros
+            WHERE carro = '{car_name}';
+        """
+        return self.do_query(sql_query)[0][0]
+    
+    def get_all_dvrs(self):
+        sql_query = f"""
+            SELECT id, modelo
+            FROM dvrs;
+        """
+        return self.do_query(sql_query)
+    
+    def set_pedido_pendente(self, user_id, empresa_id, carro_id, dvr_id, cameras):
+
+        sql_query = f"""
+            INSERT INTO pedidos (user_id, empresa_id, carro_id, tipo, estado, created, modified, dvr_id, cameras, troca_midia)
+            VALUES ({user_id}, {empresa_id}, {carro_id}, 'RaspDvr', 'pendente', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, {dvr_id}, {cameras}, 'false')
+            RETURNING id;  -- Retorna o ID do pedido inserido
+        """
+
+        try:
+            with self.conn.cursor() as cursor:
+                cursor.execute(sql_query)
+                self.conn.commit()
+                pedido_id = cursor.fetchone()[0]  # Obtém o ID do pedido inserido
+                return pedido_id
+            
+        except psycopg2.Error as e:
+            print("Erro ao inserir pedido pendente:", e)
+        self.conn.rollback()  # Desfaz qualquer alteração no banco de dados em caso de erro
+        
+        return None
