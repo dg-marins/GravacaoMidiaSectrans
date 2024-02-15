@@ -4,14 +4,14 @@ $conectasectrans = pg_connect("host=10.80.0.1 dbname=$sectrans user=sectrans pas
 or die("Erro ao conectar no banco de dados $sectrans");
 
 $arrLista = array();
-$svrPendrive = '10.80.0.126';
-$svrAdmPendrive = '10.80.3.22';
+//$svrPendrive = '10.80.0.126';
+//$svrAdmPendrive = '10.80.3.22';
 $dirPendrive = '/home/geracao';
-$dirThor = '/home/pendrive';
+$dirThor = '/home/temporario';
 
-$Lista = pg_query($conectasectrans, "SELECT d.username,a.tipo,a.estado,a.carro_id,b.empresa,b.id,c.carro,e.rede,e.chave,c.ip,e.ip_roteador,c.mac,c.numero_conexao,c.tipo_conexao,c.username_conexao,c.senha_conexao,c.fps,c.tamanho_video,c.particao,b.ip_servidor,b.rede_servidor,e.criptografia,f.url,a.cameras FROM pedidos a,empresas b,carros c,users d,redes e, dvrs f WHERE b.id = a.empresa_id AND c.id = a.carro_id AND a.user_id = d.id AND c.rede_id = e.id  AND a.estado = 'pendente'");
+$Lista = pg_query($conectasectrans, "SELECT d.username,a.troca_midia,a.tipo,a.estado,a.carro_id,b.empresa,b.id,c.carro,e.rede,e.chave,c.ip,e.ip_roteador,c.mac,c.numero_conexao,c.tipo_conexao,c.username_conexao,c.senha_conexao,c.fps,c.tamanho_video,c.particao,b.ip_servidor,b.rede_servidor,e.criptografia,f.url,a.cameras FROM pedidos a,empresas b,carros c,users d,redes e, dvrs f WHERE b.id = a.empresa_id AND c.id = a.carro_id AND a.user_id = d.id AND c.rede_id = e.id  AND a.estado = 'pendente'");
 
-exec("rm /home/pendrive/* &");
+exec("rm /home/temporario/* &");
 
 while($tmp = pg_fetch_array($Lista)):
     $arrLista[] = array("empresa" => $tmp['empresa'],
@@ -34,6 +34,7 @@ while($tmp = pg_fetch_array($Lista)):
                   "empresa_id" => $tmp['id'],
                   "cameras" => $tmp['cameras'],
                   "url" => $tmp['url'],
+                  "troca_midia" => $tmp['troca_midia'],
                   "criptografia" => $tmp['criptografia'], // comentar
                   "carro_id" => $tmp['carro_id']
                 );
@@ -51,6 +52,9 @@ foreach($arrLista as $ListaCompleta):
             exec("echo '<carro>'".$ListaCompleta['carro']."'</carro>' >> $dirThor/$log");
             exec("echo '<ip_default>192.168.10.100</ip_default>' >> $dirThor/$log");
             exec("echo '<cameras>'".$ListaCompleta['cameras']."'</cameras>' >> $dirThor/$log");
+
+            exec("echo '<troca_midia>'".$ListaCompleta['troca_midia']."'</troca_midia>' >> $dirThor/$log");
+
             exec("echo '<!--   REDE -->' >> $dirThor/$log");
             exec("echo '<transferencia_usuario>'".$ListaCompleta['rede']."'</transferencia_usuario>' >> $dirThor/$log");
             exec("echo '<transferencia_senha>'".$ListaCompleta['chave']."'</transferencia_senha>' >> $dirThor/$log");
@@ -62,7 +66,7 @@ foreach($arrLista as $ListaCompleta):
             exec("echo '<criptografia>'".$ListaCompleta['criptografia']."'</criptografia>' >> $dirThor/$log");
             exec("echo '<!--   CAPTURA -->' >> $dirThor/$log");
             exec("echo '<captura_tempo>'".$ListaCompleta['tamanho_video']."'</captura_tempo>' >> $dirThor/$log");
-            exec("echo '<captura_framerate>15</captura_framerate>' >> $dirThor/$log");
+            exec("echo '<captura_framerate>5</captura_framerate>' >> $dirThor/$log");
             exec("echo '<captura_bitrate>100000</captura_bitrate>' >> $dirThor/$log");
             exec("echo '<captura_sensibilidade>3000</captura_sensibilidade>' >> $dirThor/$log");
             exec("echo '<captura_resolucao>448x256</captura_resolucao>' >> $dirThor/$log");
@@ -73,16 +77,18 @@ foreach($arrLista as $ListaCompleta):
             exec("echo '<!--   RTSP -->' >> $dirThor/$log");
 
             for($qtdCams=1;$qtdCams<=$ListaCompleta['cameras'];$qtdCams++):
-                $url = "rtsp://192.168.10.101:554/?user=admin&amp;password=&amp;channel=x&amp;stream=1.sdp?real_stream";
+                //$url = "rtsp://192.168.10.101:554/?user=admin&amp;password=&amp;channel=x&amp;stream=1.sdp?real_stream";
+                $url = "rtsp://192.168.10.101:554/user=admin&amp;password=&amp;channel=x&amp;stream=1.sdp";
                 $novaUrl = str_replace("channel=x","channel=$qtdCams",$url);
                 exec("echo '<rtsp_url_$qtdCams>$novaUrl</rtsp_url_$qtdCams>' >> $dirThor/$log");
             endfor;
 
             exec("echo '<!--   BOOLEANS -->' >> $dirThor/$log");
-            exec("echo '<encoda>true</encoda> <!--ENCODAR VIDEOS-->' >> $dirThor/$log");
+            exec("echo '<encoda>false</encoda> <!--ENCODAR VIDEOS-->' >> $dirThor/$log");
             exec("echo '<reverse>false</reverse> <!--DESCARREGAMENTO REVERSO-->' >> $dirThor/$log");
             exec("echo '</sectrans>' >> $dirThor/$log");
-            exec("scp $dirThor/$log $svrPendrive:/".$dirPendrive);
+//          exec("scp $dirThor/$log $svrPendrive:/".$dirPendrive);
+            exec("mv $dirThor/$log /home/gravacao");
             break;
         default:
             echo "$dirThor/$log";
@@ -113,7 +119,8 @@ foreach($arrLista as $ListaCompleta):
             exec("echo 'mp4,' >> $dirThor/$log");
             if($ListaCompleta['tipo'] == 'RaspDvr' && $ListaCompleta['criptografia'] == 'taWpa') exec("echo 'taWpa' >> $dirThor/$log");
 //          exec("echo '".$ListaCompleta['criptografia']."' >> $dirThor/$log"); // comentar
-            exec("scp $dirThor/$log $svrPendrive:/".$dirPedfndrive);
+//          exec("scp $dirThor/$log $svrPendrive:/".$dirPendrive);
+            exec("mv $dirThor/$log /home/gravacao");
 //          exec("scp $dirThor/$log $svrAdmPendrive:/".$dirPendrive);
             break;
     endswitch;

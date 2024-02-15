@@ -113,7 +113,8 @@ class Main():
                 "cameras": pedido[23],          # Índice 23 corresponde a 'a.cameras'
                 "url": pedido[22],              # Índice 22 corresponde a 'f.url'
                 "criptografia": pedido[21],     # Índice 21 corresponde a 'e.criptografia'
-                "carro_id": pedido[3]           # Índice 3 corresponde a 'a.carro_id'
+                "carro_id": pedido[3],          # Índice 3 corresponde a 'a.carro_id'
+                "troca_midia": pedido[24]       # Índice 24 corresponde a 'a.troca_midia'
             })
 
         for ListaCompleta in arrLista:
@@ -130,6 +131,7 @@ class Main():
                     file.write(f'<carro>{ListaCompleta["carro"]}</carro>\n')
                     file.write('<ip_default>192.168.10.100</ip_default>\n')
                     file.write(f'<cameras>{ListaCompleta["cameras"]}</cameras>\n')
+                    file.write(f'<troca_midia>{ListaCompleta["troca_midia"]}</troca_midia>\n')
                     file.write('<!--   REDE -->\n')
                     file.write(f'<transferencia_usuario>{ListaCompleta["rede"]}</transferencia_usuario>\n')
                     file.write(f'<transferencia_senha>{ListaCompleta["chave"]}</transferencia_senha>\n')
@@ -141,7 +143,7 @@ class Main():
                     file.write(f'<criptografia>{ListaCompleta["criptografia"]}</criptografia>\n')
                     file.write('<!--   CAPTURA -->\n')
                     file.write(f'<captura_tempo>{ListaCompleta["tamanho_video"]}</captura_tempo>\n')
-                    file.write('<captura_framerate>15</captura_framerate>\n')
+                    file.write('<captura_framerate>5</captura_framerate>\n')
                     file.write('<captura_bitrate>100000</captura_bitrate>\n')
                     file.write('<captura_sensibilidade>3000</captura_sensibilidade>\n')
                     file.write('<captura_resolucao>448x256</captura_resolucao>\n')
@@ -152,14 +154,14 @@ class Main():
                     file.write('<!--   RTSP -->\n')
 
                     for qtdCams in range(1, ListaCompleta['cameras']+1):
-                        url = "rtsp://192.168.10.101:554/?user=admin&password=&channel=x&stream=1.sdp?real_stream"
+                        url = "rtsp://192.168.10.101:554/user=admin&amp;password=&amp;channel=x&amp;stream=1.sdp"
                         novaUrl = url.replace("channel=x", f"channel={qtdCams}")
                         file.write(f'<rtsp_url_{qtdCams}>{novaUrl}</rtsp_url_{qtdCams}>\n')
                 
-                        file.write('<!--   BOOLEANS -->\n')
-                        file.write('<encoda>true</encoda> <!--ENCODAR VIDEOS-->\n')
-                        file.write('<reverse>false</reverse> <!--DESCARREGAMENTO REVERSO-->\n')
-                        file.write('</sectrans>\n')
+                    file.write('<!--   BOOLEANS -->\n')
+                    file.write('<encoda>true</encoda> <!--ENCODAR VIDEOS-->\n')
+                    file.write('<reverse>false</reverse> <!--DESCARREGAMENTO REVERSO-->\n')
+                    file.write('</sectrans>\n')
                 
                 # # file.write(f"scp {dirThor}/{log}.xml {svrPendrive}:/{dirPendrive}\n")
                 # subprocess.run(["scp", "-P", "2222", f"{dirThor}/{log}", f"root@{svrPendrive}:/{dirPendrive}"])
