@@ -159,7 +159,7 @@ class Main():
                         file.write(f'<rtsp_url_{qtdCams}>{novaUrl}</rtsp_url_{qtdCams}>\n')
                 
                     file.write('<!--   BOOLEANS -->\n')
-                    file.write('<encoda>true</encoda> <!--ENCODAR VIDEOS-->\n')
+                    file.write('<encoda>false</encoda> <!--ENCODAR VIDEOS-->\n')
                     file.write('<reverse>false</reverse> <!--DESCARREGAMENTO REVERSO-->\n')
                     file.write('</sectrans>\n')
                 
