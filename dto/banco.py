@@ -20,6 +20,7 @@ class Banco:
 
             # file.writeutar a consulta SQL
             cursor.execute(sql_query)
+            self.conn.commit()
 
             # Recuperar os resultados
             return cursor.fetchall()
@@ -85,7 +86,7 @@ class Banco:
         sql_query = f"""
             INSERT INTO pedidos (user_id, empresa_id, carro_id, tipo, estado, created, modified, dvr_id, cameras, troca_midia)
             VALUES ({user_id}, {empresa_id}, {carro_id}, 'RaspDvr', 'pendente', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, {dvr_id}, {cameras}, 'false')
-            RETURNING id;  -- Retorna o ID do pedido inserido
+            RETURNING id;
         """
 
         try:
@@ -100,3 +101,15 @@ class Banco:
         self.conn.rollback()  # Desfaz qualquer alteração no banco de dados em caso de erro
         
         return None
+    
+    def set_pedido_to_gravado(self, carro_id):
+
+        sql_query = f"""
+            UPDATE pedidos 
+            SET estado = 'gravado' 
+            WHERE estado = 'pendente' 
+            AND carro_id = {carro_id}
+            RETURNING id;
+            """
+        
+        return self.do_query(sql_query)

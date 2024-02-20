@@ -199,9 +199,10 @@ class Main():
                         file.write("taWpa\n")
 
                     # subprocess.run(f"scp {dirThor}/{log} {svrAdmPendrive}:{dirPendrive}", shell=True)
+                    # print("Arquivo enviado")
+                        
+            db.set_pedido_to_gravado(ListaCompleta['carro_id'])[0]
 
-            print("Arquivo enviado")
-            # pg_query(conectasectrans, f"UPDATE pedidos SET estado = 'gravado' WHERE estado = 'pendente' AND empresa_id = '{ListaCompleta['empresa_id']}' AND carro_id = '{ListaCompleta['carro_id']}'")
 
         # Fechar a conexão com o PostgreSQL
         # conectasectrans.close()
