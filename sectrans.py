@@ -118,12 +118,14 @@ class Main():
             })
 
         for ListaCompleta in arrLista:
-            log = f"{ListaCompleta['empresa']}%{ListaCompleta['carro']}%{ListaCompleta['rede']}%{ListaCompleta['tipo']}".replace('"', '')
+            config_file_name = f"{ListaCompleta['empresa']}%{ListaCompleta['carro']}%{ListaCompleta['rede']}%{ListaCompleta['tipo']}".replace('"', '')
+            config_file_full_path = os.path.join(dirThor, config_file_name)
+
             if ListaCompleta['mac'] == '':
                 ListaCompleta['mac'] = "00:00:00:00:00:00"
             
             if ListaCompleta['tipo'] == "RaspDvr":
-                with open(f"{dirThor}/{log}", "w", encoding='utf-8') as file:
+                with open(config_file_full_path, "w", encoding='utf-8') as file:
                     file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                     file.write('<sectrans>\n')
                     file.write('<!--   BÁSICAS -->\n')
@@ -167,9 +169,8 @@ class Main():
                 # subprocess.run(["scp", "-P", "2222", f"{dirThor}/{log}", f"root@{svrPendrive}:/{dirPendrive}"])
 
             else:
-                log_path = f"{dirThor}/{log}"
-                with open(log_path, "w") as file:
-                    file.write(f"{log_path}\n")
+                with open(config_file_full_path, "w") as file:
+                    file.write(f"{config_file_full_path}\n")
                     file.write(f"{ListaCompleta['empresa']}\n")
                     file.write("sim\n")
                     file.write(f"{ListaCompleta['carro']}\n")
@@ -210,10 +211,10 @@ if __name__ == '__main__':
 
     mr = Main()
     
-    while True:
+    # while True:
         # try:
-        mr.main()
+    mr.main()
 
-        #Aguarda 30 minutos ate o proximo loop
-        print(f"Aguardando próximo loop")
-        time.sleep(1800)
+    #Aguarda 30 minutos ate o proximo loop
+    # print(f"Aguardando próximo loop")
+    # time.sleep(1800)
