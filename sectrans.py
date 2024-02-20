@@ -123,7 +123,7 @@ class Main():
                 ListaCompleta['mac'] = "00:00:00:00:00:00"
             
             if ListaCompleta['tipo'] == "RaspDvr":
-                with open(f"{dirThor}/{log}", "w") as file:
+                with open(f"{dirThor}/{log}", "w", encoding='utf-8') as file:
                     file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
                     file.write('<sectrans>\n')
                     file.write('<!--   BÁSICAS -->\n')
@@ -166,8 +166,6 @@ class Main():
                 # # file.write(f"scp {dirThor}/{log}.xml {svrPendrive}:/{dirPendrive}\n")
                 # subprocess.run(["scp", "-P", "2222", f"{dirThor}/{log}", f"root@{svrPendrive}:/{dirPendrive}"])
 
-                print("Arquivo enviado")
-
             else:
                 log_path = f"{dirThor}/{log}"
                 with open(log_path, "w") as file:
@@ -202,6 +200,7 @@ class Main():
 
                     # subprocess.run(f"scp {dirThor}/{log} {svrAdmPendrive}:{dirPendrive}", shell=True)
 
+            print("Arquivo enviado")
             # pg_query(conectasectrans, f"UPDATE pedidos SET estado = 'gravado' WHERE estado = 'pendente' AND empresa_id = '{ListaCompleta['empresa_id']}' AND carro_id = '{ListaCompleta['carro_id']}'")
 
         # Fechar a conexão com o PostgreSQL
