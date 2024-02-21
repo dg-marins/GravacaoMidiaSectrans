@@ -81,11 +81,11 @@ class Banco:
         """
         return self.do_query(sql_query)
     
-    def set_pedido_pendente(self, user_id, empresa_id, carro_id, dvr_id, cameras):
+    def set_pedido_pendente(self, user_id, empresa_id, carro_id, equipament_model, dvr_id, cameras):
 
         sql_query = f"""
             INSERT INTO pedidos (user_id, empresa_id, carro_id, tipo, estado, created, modified, dvr_id, cameras, troca_midia)
-            VALUES ({user_id}, {empresa_id}, {carro_id}, 'RaspDvr', 'pendente', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, {dvr_id}, {cameras}, 'false')
+            VALUES ({user_id}, {empresa_id}, {carro_id}, '{equipament_model}', 'pendente', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, {dvr_id}, {cameras}, 'false')
             RETURNING id;
         """
 

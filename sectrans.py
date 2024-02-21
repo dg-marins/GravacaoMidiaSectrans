@@ -72,10 +72,20 @@ class Main():
 
         cameras = input("\nInforme a quantidade de câmeras: ")
         
+        equipament_select = int(input(f"\nModelos: \n1 - RaspDvr\n2 - NX\nInforme Número: "))
+        
+        if equipament_select == 1:
+            equipament_model = 'RaspDvr'
+        elif equipament_select == 2:
+            equipament_model = 'NX'
+        else:
+            print("Equipamento não reconhecido")
+            exit()
+
         ## REFATORAR
         user_id = 279
 
-        if db.set_pedido_pendente(user_id, selectet_company_id, car_id, dvr_id, cameras):
+        if db.set_pedido_pendente(user_id, selectet_company_id, car_id, equipament_model, dvr_id, cameras):
             print("Pedido inserido com sucesso.")
 
         else:
@@ -170,7 +180,6 @@ class Main():
 
             else:
                 with open(config_file_full_path, "w") as file:
-                    file.write(f"{config_file_full_path}\n")
                     file.write(f"{ListaCompleta['empresa']}\n")
                     file.write("sim\n")
                     file.write(f"{ListaCompleta['carro']}\n")
