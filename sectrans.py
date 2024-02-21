@@ -62,22 +62,24 @@ class Main():
             
         car_id = db.get_car_id_by_name(selected_car_name)
 
-
-        dvrs = db.get_all_dvrs()
-        for dvr in dvrs:
-            id, modelo = dvr
-            print(id, modelo)
-
-        dvr_id = input("\nInforme o id do dvr: ")
-
-        cameras = input("\nInforme a quantidade de câmeras: ")
-        
         equipament_select = int(input(f"\nModelos: \n1 - RaspDvr\n2 - NX\nInforme Número: "))
         
         if equipament_select == 1:
             equipament_model = 'RaspDvr'
+
+            dvrs = db.get_all_dvrs()
+            for dvr in dvrs:
+                id, modelo = dvr
+                print(id, modelo)
+            dvr_id = input("\nInforme o id do dvr: ")
+
+            cameras = input("\nInforme a quantidade de câmeras: ")
+
         elif equipament_select == 2:
             equipament_model = 'NX'
+            dvr_id = 3
+            cameras = 4
+
         else:
             print("Equipamento não reconhecido")
             exit()
@@ -175,6 +177,8 @@ class Main():
                     file.write('<reverse>false</reverse> <!--DESCARREGAMENTO REVERSO-->\n')
                     file.write('</sectrans>\n')
                 
+                print(f'Arquivo do carro {ListaCompleta["carro"]} criado.')
+                
                 # # file.write(f"scp {dirThor}/{log}.xml {svrPendrive}:/{dirPendrive}\n")
                 # subprocess.run(["scp", "-P", "2222", f"{dirThor}/{log}", f"root@{svrPendrive}:/{dirPendrive}"])
 
@@ -210,9 +214,12 @@ class Main():
 
                     # subprocess.run(f"scp {dirThor}/{log} {svrAdmPendrive}:{dirPendrive}", shell=True)
                     # print("Arquivo enviado")
-                        
-            db.set_pedido_to_gravado(ListaCompleta['carro_id'])[0]
+                
+                print(f'Arquivo do carro {ListaCompleta["carro"]} criado.')
 
+            
+            db.set_pedido_to_gravado(ListaCompleta['carro_id'])[0]
+            print("Pedido Atualizado no banco")
 
         # Fechar a conexão com o PostgreSQL
         # conectasectrans.close()
