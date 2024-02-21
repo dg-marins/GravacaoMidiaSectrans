@@ -9,21 +9,23 @@ class Banco:
         self.conn = self.conect_db(hostPg, dbName, userPg, passwordPg, portPg)
 
     def conect_db(self, hostPg, dbName, userPg, passwordPg, portPg):
-        # Criar uma conexão PostgreSQL
-        conn = psycopg2.connect(host=hostPg, dbname=dbName, user=userPg, 
-                                           password=passwordPg, port=portPg)
-        return conn
+        try:
+            conn = psycopg2.connect(host=hostPg, dbname=dbName, user=userPg, password=passwordPg, port=portPg)
+            return conn
+        except psycopg2.Error as e:
+            print("Erro ao conectar ao banco de dados:", e)
+            raise
 
-    def do_query(self, sql_query):
-        # Criar um cursor para file.writeutar a consulta SQL
-        with self.conn.cursor() as cursor:
-
-            # file.writeutar a consulta SQL
-            cursor.execute(sql_query)
-            self.conn.commit()
-
-            # Recuperar os resultados
-            return cursor.fetchall()
+    def do_query(self, sql_query, params=None):
+        try:
+            with self.conn.cursor() as cursor:
+                cursor.execute(sql_query, params)
+                self.conn.commit()
+                return cursor.fetchall()
+        except psycopg2.Error as e:
+            print("Erro ao executar a consulta:", e)
+            self.conn.rollback()
+            raise
 
     def get_pedidos_pendentes(self):
 
@@ -89,18 +91,7 @@ class Banco:
             RETURNING id;
         """
 
-        try:
-            with self.conn.cursor() as cursor:
-                cursor.execute(sql_query)
-                self.conn.commit()
-                pedido_id = cursor.fetchone()[0]  # Obtém o ID do pedido inserido
-                return pedido_id
-            
-        except psycopg2.Error as e:
-            print("Erro ao inserir pedido pendente:", e)
-        self.conn.rollback()  # Desfaz qualquer alteração no banco de dados em caso de erro
-        
-        return None
+        return self.do_query(sql_query, sql_query)[0][0]
     
     def set_pedido_to_gravado(self, carro_id):
 
