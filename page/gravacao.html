@@ -1,36 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gravação de Mídia</title>
-    <link rel="stylesheet" href="./page/styles/style.css">
+    <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
     <header>
         <div class="logo_content">
-            <img src="./page/assets/logo_sectrans.png" alt="logo_Sectrans">
+            <img src="./assets/logo_sectrans.png" alt="logo_Sectrans">
         </div>
         <div class="page_top">
             <ul class="page_top_navbar">
-                <li class="page_top_navbar_item"><a href="">Home</a></li>
-                <li class="page_top_navbar_item"><a href="./page/gravacao.html">Gravação</a></li>
+                <li class="page_top_navbar_item"><a href="./index.html">Home</a></li>
+                <li class="page_top_navbar_item"><a href="./gravacao.html">Gravação</a></li>
                 <li class="page_top_navbar_item"><a href="">Contact</a></li>
                 <li class="page_top_navbar_item"><a href="">About</a></li>
             </ul>
         </div>
     </header>
     <main class="principal">
-        <div class="principal_container_mensagem">
-            <p class="principal_paragrafo">Conheça nossa</p>
-            <span class="principal_paragrafo_destaque">Linha Veicular</span>
-            <p class="principal_paragrafo">Alta tecnologia para sua frota!</p>
-        </div>
-        <img src="./page/assets/mylife-nossa-frota.png" alt="">
+    
+        <label for="empresas">Selecione uma empresa:</label>
+        <select id="empresas" onchange="selecionarEmpresa()">
+            <option value="empresa1">Tijuquinha</option>
+            <option value="empresa2">Graças</option>
+            <option value="empresa3">SJC</option>
+        </select><br>
+
+        <label for="carros">Selecione um carro:</label>
+        <select id="carros">
+            <option value="carro1">50501</option>
+        </select><br>
+
+        <label for="modelo_equipamento">Selecione o modelo de equipamento:</label>
+        <select id="modelo_equipamento">
+            <option value="equipamento1">RaspDvr</option>
+            <option value="equipamento2">NX</option>
+        </select>
+
     </main>
     <footer>
 
     </footer>
-    <script src="./page/scripts/script.js"></script>
+    <script src="./scripts/script.js"></script>
 </body>
 </html>
