@@ -24,4 +24,13 @@ function listarEmpresas(){
     });
 }
 
+function listarCarros(empresa_id){
+    console.log(empresa_id)
+}
+
+// Executar a função listarEmpresas() quando o DOM estiver pronto
+document.addEventListener("DOMContentLoaded", function() {
+    listarEmpresas();
+});
+
 
