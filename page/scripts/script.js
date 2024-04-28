@@ -7,6 +7,9 @@ function selecionarEmpresa() {
 function atualizarSelect(selectId, listItens){
     var selectItem = document.getElementById(selectId);
 
+    // Limpar opções existentes
+    selectItem.innerHTML = '';
+    
     listItens.forEach(function(item)
     {
         var option = document.createElement("option");
