@@ -21,25 +21,23 @@
         </div>
     </header>
     <main class="principal">
-    
-        <label for="empresas">Selecione uma empresa:</label>
-        <select id="empresas" onchange="selecionarEmpresa()">
-            <option value="empresa1">Tijuquinha</option>
-            <option value="empresa2">Graças</option>
-            <option value="empresa3">SJC</option>
-        </select><br>
+        <div class="principal_conteudo_gravacao">
+            <h2>Selecione:</h2><br>
+            <label class="principal_conteudo_gravacao_labbels" for="empresas">Selecione uma empresa:</label>
+            <select class="principal_conteudo_gravacao_selects" id="empresas" onchange="selecionarEmpresa()">
+            </select><button onclick="listarEmpresas()">Listar empresas</button><br>
 
-        <label for="carros">Selecione um carro:</label>
-        <select id="carros">
-            <option value="carro1">50501</option>
-        </select><br>
+            <label class="principal_conteudo_gravacao_labbels" for="carros">Selecione um carro:</label>
+            <select class="principal_conteudo_gravacao_selects" id="carros">
+                <option value="carro1">50501</option>
+            </select><br>
 
-        <label for="modelo_equipamento">Selecione o modelo de equipamento:</label>
-        <select id="modelo_equipamento">
-            <option value="equipamento1">RaspDvr</option>
-            <option value="equipamento2">NX</option>
-        </select>
-
+            <label class="principal_conteudo_gravacao_labbels" for="modelo_equipamento">Modelo de Equipamento:</label>
+            <select class="principal_conteudo_gravacao_selects" id="modelo_equipamento">
+                <option value="equipamento1">RaspDvr</option>
+                <option value="equipamento2">NX</option>
+            </select>
+        </div>
     </main>
     <footer>
 
