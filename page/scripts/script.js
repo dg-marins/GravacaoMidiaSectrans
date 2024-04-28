@@ -18,9 +18,10 @@ function listarEmpresas(){
     {
         var option = document.createElement("option");
         option.value = empresa.id;
-        option.text = empresa.text;
+        option.text = empresa.empresa;
 
-        empresa.appendChild(option);
+        selectEmpresas.appendChild(option);
     });
 }
+
 
