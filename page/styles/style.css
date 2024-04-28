@@ -25,7 +25,7 @@ body{
     border-radius: 50%;
     z-index: -2;
     left: 5%;
-    top: 6%;
+    top: 5%;
     display: flex;
     align-items: center;
     flex-direction: center;
@@ -39,7 +39,7 @@ body{
     position: absolute;
     background-color: var(--cor-principal);
     width: 100%;
-    height: 110px;
+    height: 15%;
     display: flex;
     z-index: -3;
 }
@@ -76,7 +76,7 @@ body{
     position: absolute;
     z-index: -3;
     top: 16%;
-    height: 84%;
+    height: 80%;
     width: 100%;
     display: flex;
     align-items: center;
@@ -99,4 +99,20 @@ body{
     color: var(--cor-principal);
     font-weight: bold;
     font-size: 35px;
+}
+
+.principal_conteudo_gravacao{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+    width: 20%;
+    align-items: center;
+}
+
+.principal_conteudo_gravacao_labbels{
+    color: var(--cor-hover-menu);
+}
+
+.principal_conteudo_gravacao_selects{
+    width: 80%;
 }
