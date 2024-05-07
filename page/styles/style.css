@@ -20,15 +20,16 @@ body{
 .logo_content{
     position: absolute;
     background-color: var(--cor-terciaria);
-    width: 120px;
+    width: 200px;
     height: 120px;
-    border-radius: 50%;
+    border-radius: 15px;
     z-index: -2;
     left: 5%;
     top: 5%;
     display: flex;
     align-items: center;
     flex-direction: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .logo_content img{
@@ -42,17 +43,16 @@ body{
     height: 15%;
     display: flex;
     z-index: -3;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
 }
 
 .page_top_navbar{
     list-style-type: none;
-    margin: 0;
-    padding: 0;
     overflow: hidden;
     background-color: var(--cor-principal);
-    position: absolute;
-    bottom: 0;
-    right: 0;
 }
 
 .page_top_navbar_item {
@@ -70,6 +70,7 @@ body{
 .page_top_navbar_item a:hover{
     background-color: var(--cor-terciaria);
     color: var(--cor-hover-menu);
+    border-radius: 5%;
 }
 
 .principal{
@@ -107,12 +108,21 @@ body{
     margin-top: 5%;
     width: 20%;
     align-items: center;
+    border: solid 1px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
 }
 
 .principal_conteudo_gravacao_labbels{
     color: var(--cor-hover-menu);
+    padding-bottom: 8px;
 }
 
 .principal_conteudo_gravacao_selects{
     width: 80%;
+    text-align: center;
+    border: 1px solid #f34d25;
+    border-radius: 20px;
 }
