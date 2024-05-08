@@ -17,8 +17,13 @@ body{
     font-weight: 600;
 }
 
-.logo_content{
-    position: absolute;
+.header{
+    display: flex;
+}
+
+.header_logo_content{
+    margin-left: 10%;
+    margin-top: 6%;
     background-color: var(--cor-terciaria);
     width: 200px;
     height: 120px;
@@ -32,11 +37,11 @@ body{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.logo_content img{
+.header_logo_content img{
     width: 100%;
 }
 
-.page_top{
+.header_page_top{
     position: absolute;
     background-color: var(--cor-principal);
     width: 100%;
@@ -48,17 +53,17 @@ body{
     align-items: flex-end;
 }
 
-.page_top_navbar{
+.header_page_top_navbar{
     list-style-type: none;
     overflow: hidden;
     background-color: var(--cor-principal);
 }
 
-.page_top_navbar_item {
+.header_page_top_navbar_item {
     float: left;
 }
   
-.page_top_navbar_item a{
+.header_page_top_navbar_item a{
   display: block;
   color: var(--cor-terciaria);
   text-align: center;
@@ -66,7 +71,7 @@ body{
   text-decoration: none;
 }
 
-.page_top_navbar_item a:hover{
+.header_page_top_navbar_item a:hover{
     background-color: var(--cor-terciaria);
     color: var(--cor-hover-menu);
     border-radius: 5%;
