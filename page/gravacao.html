@@ -33,18 +33,18 @@
             </select><br>
 
             <label class="principal_conteudo_gravacao_labbels" for="modelo_equipamento">Modelo de Equipamento:</label>
-            <select class="principal_conteudo_gravacao_selects" id="modelo_equipamento">
-                <option value="equipamento1">RaspDvr</option>
-                <option value="equipamento2">NX</option>
+            <select class="principal_conteudo_gravacao_selects" id="modelo_equipamento" onchange="atualizarParametrosGravacao(this.value)">
+                <option value="RaspDvr">RaspDvr</option>
+                <option value="NX">NX</option>
             </select><br>
 
-            <label class="principal_conteudo_gravacao_labbels" for="dvr">DRV:</label>
-            <select class="principal_conteudo_gravacao_selects" id="dvr">
+            <label class="principal_conteudo_gravacao_labbels" for="dvr" id="dvr_label">DVR:</label>
+            <select class="principal_conteudo_gravacao_selects" id="dvr_select">
                 <option value="dvr1">Giga HVR</option>
             </select><br>
 
-            <label class="principal_conteudo_gravacao_labbels" for="cameras">Câmeras:</label>
-            <select class="principal_conteudo_gravacao_selects" id="cameras">
+            <label class="principal_conteudo_gravacao_labbels" for="cameras" id="cameras_label">Câmeras:</label>
+            <select class="principal_conteudo_gravacao_selects" id="cameras_select">
                 <option value="cameras4">4</option>
                 <option value="cameras3">3</option>
                 <option value="cameras2">2</option>
