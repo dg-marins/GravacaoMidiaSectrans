@@ -129,3 +129,34 @@ body{
     text-align: center;
     border-radius: 20px;
 }
+
+.principal_conteudo_gravacao_botao{
+    background-color: var(--cor-principal);
+    color: #fff;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    animation: none;
+    
+}
+
+@keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+}
+  
+.principal_conteudo_gravacao_botao:hover {
+    animation: pulse 2s infinite;
+}
