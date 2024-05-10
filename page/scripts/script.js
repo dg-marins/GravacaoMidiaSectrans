@@ -67,6 +67,29 @@ function listarCarros(idEmpresaSelecionada) {
     console.log(carros)
 }
 
+function modifyDisplay(ids, exibition){
+    for (var i = 0; i < ids.length; i++) {
+        var element = document.getElementById(ids[i]);
+        if (element) {
+            element.style.display = exibition; // Modifica o estilo para exibição
+        }
+    }
+}
+
+function atualizarParametrosGravacao(modeloEquipamento){
+    var IdDisplayDvr = ["dvr_label", "dvr_select"];
+    var IdDisplayCameras = ["cameras_label", "cameras_select"];
+
+    // Verificar se o modelo de equipamento é "RaspDvr"
+    if (modeloEquipamento === "RaspDvr") {
+        modifyDisplay(IdDisplayDvr, "block")
+        modifyDisplay(IdDisplayCameras, "block")
+    } else {
+        modifyDisplay(IdDisplayDvr, "none")
+        modifyDisplay(IdDisplayCameras, "none")
+    }
+}
+
 // Executar a função listarEmpresas() quando o DOM estiver pronto
 document.addEventListener("DOMContentLoaded", function() {
         // Obtendo o nome do arquivo HTML atual
@@ -77,5 +100,4 @@ document.addEventListener("DOMContentLoaded", function() {
             listarEmpresas();
         }
 });
-
 
