@@ -101,3 +101,15 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 });
 
+function solicitarGravacao() {
+    // Obter os valores dos selects
+    var empresa = document.getElementById("empresas").value;
+    var carro = document.getElementById("carros").value;
+    var modeloEquipamento = document.getElementById("modelo_equipamento").value;
+    var dvr = document.getElementById("dvr_select").value;
+    var cameras = document.getElementById("cameras_select").value;
+
+    // Aqui você pode enviar os valores para onde quiser, como uma API ou fazer alguma operação com eles
+    // Por exemplo, você pode exibir os valores em um alerta
+    alert("Empresa: " + empresa + "\nCarro: " + carro + "\nModelo de Equipamento: " + modeloEquipamento + "\nDVR: " + dvr + "\nCâmeras: " + cameras);
+}
