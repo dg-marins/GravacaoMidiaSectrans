@@ -68,14 +68,7 @@ class Main():
         if equipament_select == 1:
             equipament_model = 'RaspDvr'
 
-            dvrs = db.get_all_dvrs()
-            for dvr in dvrs:
-                id, modelo = dvr
-                print(id, modelo)
-            # dvr_id = input("\nInforme o id do dvr: ")
             dvr_id = 2
-
-            # cameras = input("\nInforme a quantidade de câmeras: ")
             cameras = 4
 
         elif equipament_select == 2:
@@ -95,11 +88,6 @@ class Main():
 
         else:
             print("Não foi possível adicionar requisição")
-
-        ### --------------------------------- ###
-
-        # #Apaga arquivos de configuracao pre existente
-        # subprocess.run("rm /home/pendrive/* &", shell=True)
 
         pedidosPendentes = db.get_pedidos_pendentes()
 
