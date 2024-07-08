@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import subprocess
 from dto import banco
 import json
-import time
 import os
+from utils import sender
 
 class Main():
 
@@ -37,10 +36,12 @@ class Main():
 
         # Lê as informações da máquina do pendrive
         pendrive_machine_info = data['pendrive_machine']
-        svrPendrive = pendrive_machine_info['svrPendrive']
-        svrAdmPendrive = pendrive_machine_info['svrAdmPendrive']
-        dirPendrive = pendrive_machine_info['dirPendrive']
-        dirThor = pendrive_machine_info['dirThor']
+        pendriveMachineIp = pendrive_machine_info['machineIp']
+        pendriveSshPort = pendrive_machine_info['sshPort']
+        pendriveUsername= pendrive_machine_info['sshUsername']
+        pendrivePassowrd= pendrive_machine_info['sshPassword']
+        pendrivePathFiles = pendrive_machine_info['pathToSaveFiles']
+        defaultFilePath = pendrive_machine_info['defaultFilePath']
 
         db = banco.Banco(host_pg, dbname_pg, user_pg, password_pg, port_pg)
 
@@ -71,9 +72,11 @@ class Main():
             for dvr in dvrs:
                 id, modelo = dvr
                 print(id, modelo)
-            dvr_id = input("\nInforme o id do dvr: ")
+            # dvr_id = input("\nInforme o id do dvr: ")
+            dvr_id = 2
 
-            cameras = input("\nInforme a quantidade de câmeras: ")
+            # cameras = input("\nInforme a quantidade de câmeras: ")
+            cameras = 4
 
         elif equipament_select == 2:
             equipament_model = 'NX'
@@ -131,7 +134,7 @@ class Main():
 
         for ListaCompleta in arrLista:
             config_file_name = f"{ListaCompleta['empresa']}%{ListaCompleta['carro']}%{ListaCompleta['rede']}%{ListaCompleta['tipo']}".replace('"', '')
-            config_file_full_path = os.path.join(dirThor, config_file_name)
+            config_file_full_path = os.path.join(defaultFilePath, config_file_name)
 
             if ListaCompleta['mac'] == '':
                 ListaCompleta['mac'] = "00:00:00:00:00:00"
@@ -179,9 +182,6 @@ class Main():
                 
                 print(f'Arquivo do carro {ListaCompleta["carro"]} criado.')
                 
-                # # file.write(f"scp {dirThor}/{log}.xml {svrPendrive}:/{dirPendrive}\n")
-                # subprocess.run(["scp", "-P", "2222", f"{dirThor}/{log}", f"root@{svrPendrive}:/{dirPendrive}"])
-
             else:
                 with open(config_file_full_path, "w") as file:
                     file.write(f"{ListaCompleta['empresa']}\n")
@@ -212,25 +212,17 @@ class Main():
                     if ListaCompleta['tipo'] == 'RaspDvr' and ListaCompleta['criptografia'] == 'taWpa':
                         file.write("taWpa\n")
 
-                    # subprocess.run(f"scp {dirThor}/{log} {svrAdmPendrive}:{dirPendrive}", shell=True)
-                    # print("Arquivo enviado")
-                
                 print(f'Arquivo do carro {ListaCompleta["carro"]} criado.')
 
             
             db.set_pedido_to_gravado(ListaCompleta['carro_id'])[0]
             print("Pedido Atualizado no banco")
 
-        # Fechar a conexão com o PostgreSQL
-        # conectasectrans.close()
+            senderClass = sender.Sender(pendriveMachineIp, pendriveSshPort, pendriveUsername, pendrivePassowrd)
+            senderClass.create_ssh_connection_and_send_file(config_file_full_path, pendrivePathFiles)
+            print(f'Arquivo do carro {ListaCompleta["carro"]} enviado para máquina de pendrive')
+
 if __name__ == '__main__':
 
     mr = Main()
-    
-    # while True:
-        # try:
     mr.main()
-
-    #Aguarda 30 minutos ate o proximo loop
-    # print(f"Aguardando próximo loop")
-    # time.sleep(1800)

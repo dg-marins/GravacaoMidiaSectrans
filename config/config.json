@@ -9,9 +9,11 @@
     },
 
     "pendrive_machine": {
-        "svrPendrive":    "10.80.0.126",
-        "svrAdmPendrive": "10.80.3.22",
-        "dirPendrive":    "/home/geracao",
-        "dirThor":        "C:/Users/Douglas/Desktop/pendrive"
+        "machineIp":       "192.168.9.93",
+        "sshUsername":     "root",
+        "sshPassword":     "hifi5695",
+        "sshPort":         "2222",
+        "pathToSaveFiles": "/home/gravacao",
+        "defaultFilePath": "C:/Users/Douglas/Desktop/pendrive"
     }
 }
