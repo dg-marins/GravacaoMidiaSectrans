@@ -21,6 +21,16 @@ class Main():
             dados = json.load(json_file)
 
             return dados
+        
+    def get_car_id_by_name(self, name, list_of_cars):
+        car_id = None
+        for id, nome in list_of_cars:
+            if nome == name:
+                car_id = id
+                return car_id
+            
+        return car_id
+
 
     def main(self):
 #       
@@ -60,8 +70,7 @@ class Main():
             print(car)
 
         selected_car_name = input("\nInforme número do carro: ")
-            
-        car_id = db.get_car_id_by_name(selected_car_name)
+        car_id = self.get_car_id_by_name(selected_car_name, registred_cars)
 
         equipament_select = int(input(f"\nModelos: \n1 - RaspDvr\n2 - NX\nInforme Número: "))
         
@@ -77,17 +86,17 @@ class Main():
             cameras = 4
 
         else:
-            print("Equipamento não reconhecido")
+            print("Modelo de Equipamento não reconhecido")
             exit()
 
         ## REFATORAR
         user_id = 279
 
         if db.set_pedido_pendente(user_id, selectet_company_id, car_id, equipament_model, dvr_id, cameras):
-            print("Pedido inserido com sucesso.")
+            print("Pedido inserido no banco com sucesso.")
 
         else:
-            print("Não foi possível adicionar requisição")
+            print("Não foi possível adicionar requisição no banco")
 
         pedidosPendentes = db.get_pedidos_pendentes()
 
@@ -168,7 +177,7 @@ class Main():
                     file.write('<reverse>false</reverse> <!--DESCARREGAMENTO REVERSO-->\n')
                     file.write('</sectrans>\n')
                 
-                print(f'Arquivo do carro {ListaCompleta["carro"]} criado.')
+                print(f'Arquivo de configuração do carro {ListaCompleta["carro"]} criado.')
                 
             else:
                 with open(config_file_full_path, "w") as file:
